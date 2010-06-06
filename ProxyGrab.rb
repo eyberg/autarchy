@@ -8,6 +8,15 @@ require 'Proxy.rb'
 class ProxyGrab
   attr_accessor :goodproxies
 
+  def load
+    File.open(".goodproxies", "r") do |f| @blah = f.read end
+    self.goodproxies = Marshal.load(@blah)
+  end
+
+  def save
+    File.open(".goodproxies", "w") do |f| f.write(Marshal.dump(self.goodproxies)) end
+  end
+
   def scan
     proxylist = "http://checkedproxylists.com/"
 
