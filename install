@@ -1,0 +1,26 @@
+
+requires selenium
+  * gem install selnium-client
+
+  wget http://selenium.googlecode.com/files/selenium-remote-control-1.0.3.zip
+  unzip selen*
+  cd ~/sel-rc/selenium-server-1.0.3
+  java -jar selenium-server.jar
+
+  ruby b.rb
+
+  proxy notes: http://wiki.openqa.org/display/SRC/Proxy+Configuration+for+the+Selenium+Server
+
+watir:
+  sudo gem install firewatir
+  sudo gem install selenium-webdriver
+  sudo gem install watir-webdriver --pre
+
+  http://wiki.openqa.org/display/WTR/Cheat+Sheet
+
+ruby gtk:
+  http://ruby-gnome2.sourceforge.jp/
+
+  sudo apt-get install libgtk2-ruby
+
+  ruby blah.rb

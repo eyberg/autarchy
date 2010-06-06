@@ -1,0 +1,27 @@
+* need a pinger
+
+  rpc.pingomatic.com
+  blog.goo.ne.jp/XMLRPC
+  ping.syndic8.com/xmlrpc.php
+  rpc.blogrolling.com/pinger
+  rpc.weblogs.com/RPC2
+  api.moreover.com/RPC2
+  ping.weblogalot.com/rpc.php
+  ping.bloggers.jp/rpc
+  ping.feedburner.com
+
+* persist proxies to something
+  -- check latency
+  -- check effectiveness
+
+* spinner
+  -- dupe check
+
+* automator
+  -- maybe using proxified iframe?
+
+* automated content submitter categories
+  -- email addies
+  -- articles
+  -- bookmarkers
+  -- profiles

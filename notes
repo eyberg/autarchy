@@ -1,0 +1,25 @@
+looks like we can use the firefox proxy dynamically now...
+we'll need to open/close it anytime we change it though.... that kinda blows
+but oh well..
+
+should be a way to specify the host/proxy for chrome...
+  either through:       --proxy-server=host:port
+
+seocracy...
+
+or:
+  environment of        http_proxy
+
+or ..
+
+def works: (how to pass it in though?)
+  google-chrome --proxy-server=41.190.16.17:8080
+
+try requestign pages through a local proxy....
+
+also.. copy the google-chrome bash over the symlink.
+PROXY=41.190.16.17:8080
+
+can try specifying firefox path via:
+-firefoxProfileTemplate "path to the profile"
+
