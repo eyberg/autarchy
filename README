@@ -25,3 +25,8 @@
   -- articles
   -- bookmarkers
   -- profiles
+
+* classes
+  -- Proxy
+  -- ProxyGrab
+  -- SwitchProxy
