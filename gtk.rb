@@ -33,16 +33,72 @@ def loadurllist
       iter[1] = "1"
   end
 
-  @vbox.pack_start Gtk::Entry.new, false, false, 0
+  @kwsearch = Gtk::Button.new("Search")
+  @kwsearch.set_size_request 30, 30
+
+  keywordEntry = Gtk::Entry.new
+
+  @kwsearch.signal_connect("clicked") {
+    @ug.scan(keywordEntry.text)
+    loadurllist
+  }
+
+  @vbox.pack_start @kwsearch, false, false, 0
+  @vbox.pack_start keywordEntry, false, false, 0
 
   view = Gtk::ScrolledWindow.new.add(dest_view)
-
   @vbox.pack_end view, true, true, 0
 
   @window.show_all
 
 end
 
+def loadKeyWordSearch
+  dest_model = Gtk::ListStore.new(String, String)
+  dest_view = Gtk::TreeView.new(dest_model)
+  dest_column = Gtk::TreeViewColumn.new("URL",
+                      Gtk::CellRendererText.new,
+                      :text => 0)
+  dest_column.max_width = 500
+  dest_column.resizable = true
+  dest_column.clickable = true
+
+  pr_column = Gtk::TreeViewColumn.new("PageRank",
+                         Gtk::CellRendererText.new,
+                         :text => 1)
+  pr_column.resizable = true
+  pr_column.clickable = true
+
+  dest_view.append_column(dest_column)
+  dest_view.append_column(pr_column)
+
+=begin
+  @ug.urllist.each do |url|
+      iter = dest_model.append
+      iter[0] = url
+      iter[1] = "1"
+  end
+=end
+
+  @kwsearch = Gtk::Button.new("Search")
+  @kwsearch.set_size_request 30, 30
+
+  keywordEntry = Gtk::Entry.new
+
+  @kwsearch.signal_connect("clicked") {
+    @ug.scan(keywordEntry.text)
+    loadurllist
+  }
+
+  @vbox.pack_start @kwsearch, false, false, 0
+  @vbox.pack_start keywordEntry, false, false, 0
+
+  view = Gtk::ScrolledWindow.new.add(dest_view)
+  @vbox.pack_end view, true, true, 0
+
+  @window.show_all
+
+end
 
 def loadproxylist
   dest_model = Gtk::ListStore.new(String, String)
@@ -68,7 +124,6 @@ def loadproxylist
 
   @window.show_all
 
-  puts 'your mom'
 end
 
 @window = Gtk::Window.new
@@ -106,6 +161,8 @@ button.signal_connect("clicked") {
   browser.goto("http://whatismyip.com")
 }
 
+
+
 loadproxies.signal_connect("clicked") {
   @pg.load
   loadproxylist
@@ -130,8 +187,8 @@ proxyscrape.signal_connect("clicked") {
 }
 
 urlscrape.signal_connect("clicked") {
-  @ug.scan
-  loadurllist
+  #@ug.scan
+  loadKeyWordSearch
 }
 
 @window.signal_connect("delete_event") {
@@ -149,7 +206,7 @@ mb = Gtk::MenuBar.new
 filemenu = Gtk::Menu.new
 filem = Gtk::MenuItem.new "File"
 filem.set_submenu filemenu
-       
+
 exit = Gtk::MenuItem.new "Exit"
 exit.signal_connect "activate" do
   Gtk.main_quit

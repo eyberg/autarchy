@@ -16,9 +16,12 @@ class URLGrab
   end
 
   # search google for links on keyword
-  def scan
-    keyword = "cats"
-    search = "http://google.com/search?q=#{keyword}"
+  def scan(kw)
+    if kw.nil? or kw.empty? then
+      kw = "cats"
+    end
+
+    search = "http://google.com/search?q=#{kw}"
 
     a = WWW::Mechanize.new
 
