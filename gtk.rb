@@ -14,11 +14,17 @@ def loadurllist
   dest_column = Gtk::TreeViewColumn.new("Destination",
                       Gtk::CellRendererText.new,
                       :text => 0)
-  dest_column.max_width = 300
-  dest_view.append_column(dest_column)
+  dest_column.max_width = 500
+  dest_column.resizable = true
+  dest_column.clickable = true
+
   country_column = Gtk::TreeViewColumn.new("Country",
                          Gtk::CellRendererText.new,
                          :text => 1)
+  country_column.resizable = true
+  country_column.clickable = true
+
+  dest_view.append_column(dest_column)
   dest_view.append_column(country_column)
 
   @ug.urllist.each do |url|
@@ -26,11 +32,6 @@ def loadurllist
       iter[0] = url
       iter[1] = "1"
   end
-
-  #scroller = Gtk::ScrolledWindow.new
-  #scroller.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC)
-  #dest_view.add(scroller)
-  #@vbox.pack_start scroller, true, true, 0
 
   @vbox.pack_start Gtk::Entry.new, false, false, 0
 
@@ -76,7 +77,8 @@ end
 @pg = ProxyGrab.new
 @ug = URLGrab.new
 
-hbox = Gtk::HBox.new(false, 0)
+holdbox = Gtk::VBox.new(false, 2)
+butbox = Gtk::HBox.new(false, 2)
 
 button = Gtk::Button.new("register browser")
 proxyscrape = Gtk::Button.new("scrape proxies")
@@ -86,6 +88,15 @@ saveproxies = Gtk::Button.new("save proxies")
 urlscrape = Gtk::Button.new("scrape urls")
 loadurls = Gtk::Button.new("load urls")
 saveurls = Gtk::Button.new("save urls")
+
+button.set_size_request 50, 30
+proxyscrape.set_size_request 50, 30
+loadproxies.set_size_request 50, 30
+saveproxies.set_size_request 50, 30
+
+urlscrape.set_size_request 50, 30
+loadurls.set_size_request 50, 30
+saveurls.set_size_request 50, 30
 
 button.signal_connect("clicked") {
   sp = SwitchProxy.new
@@ -107,6 +118,10 @@ loadurls.signal_connect("clicked") {
 
 saveproxies.signal_connect("clicked") {
   @pg.save
+}
+
+saveurls.signal_connect("clicked") {
+  @ug.save
 }
 
 proxyscrape.signal_connect("clicked") {
@@ -139,22 +154,28 @@ exit = Gtk::MenuItem.new "Exit"
 exit.signal_connect "activate" do
   Gtk.main_quit
 end
-        
+
 filemenu.append exit
 
 mb.append filem
 
 @vbox = Gtk::VBox.new false, 2
-@vbox.pack_start mb, false, false, 0
+butbox.pack_start mb, false, false, 0
 
-@vbox.pack_start button, true, true, 0
-@vbox.pack_start proxyscrape, true, true, 0
-@vbox.pack_start loadproxies, true, true, 0
-@vbox.pack_start urlscrape, true, true, 0
-@vbox.pack_start loadurls, true, true, 0
-@vbox.pack_start saveproxies, true, true, 0
+butbox.pack_start button, true, true, 0
+butbox.pack_start proxyscrape, true, true, 0
+butbox.pack_start loadproxies, true, true, 0
+butbox.pack_start urlscrape, true, true, 0
+butbox.pack_start loadurls, true, true, 0
+butbox.pack_start saveproxies, true, true, 0
+butbox.pack_start saveurls, true, true, 0
 
-@window.add @vbox
+@window.set_default_size 500, 600
+@window.set_size_request 150, -1
+@window.add holdbox
+holdbox.add butbox
+holdbox.add @vbox
+
 @window.border_width = 10
 @window.show_all
 

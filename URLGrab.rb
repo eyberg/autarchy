@@ -12,7 +12,7 @@ class URLGrab
   end
 
   def save
-    File.open(".urllist", "w") do |f| f.write(Marshal.dump(self.goodproxies)) end
+    File.open(".urllist", "w") do |f| f.write(Marshal.dump(self.urllist)) end
   end
 
   def scan
