@@ -11,21 +11,21 @@ require 'URLGrab.rb'
 def loadurllist
   dest_model = Gtk::ListStore.new(String, String)
   dest_view = Gtk::TreeView.new(dest_model)
-  dest_column = Gtk::TreeViewColumn.new("Destination",
+  dest_column = Gtk::TreeViewColumn.new("URL",
                       Gtk::CellRendererText.new,
                       :text => 0)
   dest_column.max_width = 500
   dest_column.resizable = true
   dest_column.clickable = true
 
-  country_column = Gtk::TreeViewColumn.new("Country",
+  pr_column = Gtk::TreeViewColumn.new("PageRank",
                          Gtk::CellRendererText.new,
                          :text => 1)
-  country_column.resizable = true
-  country_column.clickable = true
+  pr_column.resizable = true
+  pr_column.clickable = true
 
   dest_view.append_column(dest_column)
-  dest_view.append_column(country_column)
+  dest_view.append_column(pr_column)
 
   @ug.urllist.each do |url|
       iter = dest_model.append
@@ -89,14 +89,14 @@ urlscrape = Gtk::Button.new("scrape urls")
 loadurls = Gtk::Button.new("load urls")
 saveurls = Gtk::Button.new("save urls")
 
-button.set_size_request 50, 30
-proxyscrape.set_size_request 50, 30
-loadproxies.set_size_request 50, 30
-saveproxies.set_size_request 50, 30
+button.set_size_request 100, 10
+proxyscrape.set_size_request 100, 0
+loadproxies.set_size_request 100, 0
+saveproxies.set_size_request 100, 0
 
-urlscrape.set_size_request 50, 30
-loadurls.set_size_request 50, 30
-saveurls.set_size_request 50, 30
+urlscrape.set_size_request 100, 30
+loadurls.set_size_request 100, 30
+saveurls.set_size_request 100, 30
 
 button.signal_connect("clicked") {
   sp = SwitchProxy.new
@@ -160,18 +160,17 @@ filemenu.append exit
 mb.append filem
 
 @vbox = Gtk::VBox.new false, 2
-butbox.pack_start mb, false, false, 0
+holdbox.pack_start mb, false, false, 0
 
-butbox.pack_start button, true, true, 0
-butbox.pack_start proxyscrape, true, true, 0
-butbox.pack_start loadproxies, true, true, 0
-butbox.pack_start urlscrape, true, true, 0
-butbox.pack_start loadurls, true, true, 0
-butbox.pack_start saveproxies, true, true, 0
-butbox.pack_start saveurls, true, true, 0
+butbox.pack_start button, false, true, 0
+butbox.pack_start proxyscrape, false, true, 0
+butbox.pack_start loadproxies, false, true, 0
+butbox.pack_start urlscrape, false, true, 0
+butbox.pack_start loadurls, false, true, 0
+butbox.pack_start saveproxies, false, true, 0
+butbox.pack_start saveurls, false, true, 0
 
 @window.set_default_size 500, 600
-@window.set_size_request 150, -1
 @window.add holdbox
 holdbox.add butbox
 holdbox.add @vbox
