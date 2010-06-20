@@ -21,17 +21,23 @@ class URLGrab
       kw = "cats"
     end
 
-    search = "http://google.com/search?q=#{kw}"
+    @search = "http://google.com/search?q=#{kw}"
 
     a = WWW::Mechanize.new
 
-    page = a.get(search)
-
-    hpage = Hpricot(page.body)
-
     self.urllist = []
-    hpage.search("//li[@class='g']/h3/a").each do |link|
-      self.urllist << link.attributes["href"]
+ 
+    5.times do |i|
+      page = a.get(@search)
+
+      hpage = Hpricot(page.body)
+
+      @search = hpage.search("a[@class='pn']").first.attributes["href"]
+
+      hpage.search("//li[@class='g']/h3/a").each do |link|
+        self.urllist << link.attributes["href"]
+      end
+
     end
 
   end
