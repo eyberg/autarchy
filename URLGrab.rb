@@ -15,6 +15,10 @@ class URLGrab
     File.open(".urllist", "w") do |f| f.write(Marshal.dump(self.urllist)) end
   end
 
+  def export
+    File.open("keywords.csv", "w") do |f| f.write(self.urllist.join("\r\n")) end
+  end
+
   # search google for links on keyword
   def scan(kw)
     if kw.nil? or kw.empty? then

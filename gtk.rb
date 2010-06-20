@@ -212,6 +212,12 @@ exit.signal_connect "activate" do
   Gtk.main_quit
 end
 
+exporturls = Gtk::MenuItem.new "Export Urls to CSV"
+exporturls.signal_connect "activate" do
+  @ug.export
+end
+
+filemenu.append exporturls
 filemenu.append exit
 
 mb.append filem
