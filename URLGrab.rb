@@ -20,7 +20,9 @@ class URLGrab
   end
 
   # search google for links on keyword
-  def scan(kw)
+  def scan(kw, count)
+    lookups = count / 10
+
     if kw.nil? or kw.empty? then
       kw = "cats"
     end
@@ -31,7 +33,7 @@ class URLGrab
 
     self.urllist = []
  
-    5.times do |i|
+    lookups.times do |i|
       page = a.get(@search)
 
       hpage = Hpricot(page.body)

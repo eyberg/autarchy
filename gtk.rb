@@ -39,7 +39,7 @@ def loadurllist
   keywordEntry = Gtk::Entry.new
 
   @kwsearch.signal_connect("clicked") {
-    @ug.scan(keywordEntry.text)
+    @ug.scan(keywordEntry.text, 10)
     loadurllist
   }
 
@@ -72,26 +72,21 @@ def loadKeyWordSearch
   dest_view.append_column(dest_column)
   dest_view.append_column(pr_column)
 
-=begin
-  @ug.urllist.each do |url|
-      iter = dest_model.append
-      iter[0] = url
-      iter[1] = "1"
-  end
-=end
-
   @kwsearch = Gtk::Button.new("Search")
   @kwsearch.set_size_request 30, 30
 
   keywordEntry = Gtk::Entry.new
+  keywordCount = Gtk::Entry.new
+  keywordCount.text = "100"
 
   @kwsearch.signal_connect("clicked") {
-    @ug.scan(keywordEntry.text)
+    @ug.scan(keywordEntry.text, keywordCount.text.to_i)
     loadurllist
   }
 
   @vbox.pack_start @kwsearch, false, false, 0
   @vbox.pack_start keywordEntry, false, false, 0
+  @vbox.pack_start keywordCount, false, false, 0
 
   view = Gtk::ScrolledWindow.new.add(dest_view)
   @vbox.pack_end view, true, true, 0
