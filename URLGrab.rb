@@ -15,19 +15,20 @@ class URLGrab
     File.open(".urllist", "w") do |f| f.write(Marshal.dump(self.urllist)) end
   end
 
+  # search google for links on keyword
   def scan
-    keyword = "dogs"
+    keyword = "cats"
     search = "http://google.com/search?q=#{keyword}"
 
     a = WWW::Mechanize.new
 
     page = a.get(search)
 
-    fullList = ""
+    hpage = Hpricot(page.body)
 
     self.urllist = []
-    page.links.each do |link|
-      self.urllist << link.href
+    hpage.search("//li[@class='g']/h3/a").each do |link|
+      self.urllist << link.attributes["href"]
     end
 
   end
