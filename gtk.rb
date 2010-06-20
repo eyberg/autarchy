@@ -27,15 +27,16 @@ def loadurllist
       iter[1] = "1"
   end
 
-  dest_view.set_fixed_height = 400
-
-  scroller = Gtk::ScrolledWindow.new
-  scroller.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC)
-  @vbox.pack_start scroller, true, true, 0
+  #scroller = Gtk::ScrolledWindow.new
+  #scroller.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC)
+  #dest_view.add(scroller)
+  #@vbox.pack_start scroller, true, true, 0
 
   @vbox.pack_start Gtk::Entry.new, false, false, 0
-        
-  @vbox.pack_end dest_view, true, true, 0
+
+  view = Gtk::ScrolledWindow.new.add(dest_view)
+
+  @vbox.pack_end view, true, true, 0
 
   @window.show_all
 
